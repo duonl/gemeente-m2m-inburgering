@@ -1,0 +1,242 @@
+#2025-10-23_Ontheffing_rev9278
+openapi: 3.0.0
+info:
+  title: Ontheffing API
+  description: 'Met deze API kunnen de ontheffingen van een inburgeringsplichtige
+    worden geraadpleegd. '
+  version: 1.0.0
+paths:
+  /personen/{bsn}/ontheffingen:
+    get:
+      tags:
+      - Ontheffing
+      summary: Raadplegen van ontheffingen inburgeringsplichtige
+      operationId: getOntheffingenByBsn
+      parameters:
+      - $ref: '#/components/parameters/Bsn'
+      - $ref: '#/components/parameters/BerichtId'
+      - $ref: '#/components/parameters/Bron'
+      - $ref: '#/components/parameters/Doel'
+      responses:
+        "200":
+          description: OK
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+          content:
+            application/json:
+              schema:
+                maxItems: 200
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ontheffing'
+        "400":
+          description: Fout verzoek
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "403":
+          description: Niet geautoriseerd
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "404":
+          description: Niet gevonden
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+components:
+  schemas:
+    AanvraagOordeel:
+      type: string
+      description: Het ambtelijk eindoordeel op een ingediende aanvraag van een burger
+        bij de overheid.
+      enum:
+      - Toekenning
+      - Afwijzing
+    ExamenonderdeelOntheffingInburgering:
+      type: string
+      description: De examenonderdelen van het inburgeringsexamen waarvoor ontheffing
+        kan worden aangevraagd.
+      enum:
+      - KNM
+      - LE
+      - LU
+      - SC
+      - SP
+    ExamenonderdeelOntheffingInburgeringDescription:
+      type: string
+      description: De examenonderdelen van het inburgeringsexamen waarvoor ontheffing
+        kan worden aangevraagd.
+      enum:
+      - Kennis van de Nederlandse Maatschappij
+      - Leesvaardigheid
+      - Luistervaardigheid
+      - Schrijfvaardigheid
+      - Spreekvaardigheid
+      x-enum-varnames:
+      - KNM
+      - LE
+      - LU
+      - SC
+      - SP
+    GedeeltelijkeOntheffing:
+      required:
+      - oordeel
+      - datumOordeel
+      - grond
+      type: object
+      properties:
+        oordeel:
+          $ref: '#/components/schemas/AanvraagOordeel'
+        datumOordeel:
+          type: string
+          description: 'De datum waarop het besluit betreffende de aanvraag is genomen. '
+          format: date
+        grond:
+          $ref: '#/components/schemas/OntheffingsgrondInburgering'
+        examenonderdeel:
+          $ref: '#/components/schemas/ExamenonderdeelOntheffingInburgering'
+        urenBelastbaarheidParticipatieactiviteit:
+          maximum: 9999
+          minimum: 0
+          type: integer
+          description: "Bij een waarde groter dan 0, dan betreft dit de maximale belasting\
+            \ (in uren) dat een Inburgeraar die de Z-route volgt door medische belemmering\
+            \ of beperking kan besteden aan participatie-activiteiten binnen een termijn\
+            \ van vijf jaar. \n\nBij een waarde gelijk aan 0, dan betreft dit een\
+            \ Inburgeraar die de Z-route volgt en niet kan deelnemen aan Participatie-Activiteiten.;\
+            \ Verbijzondering van: Een bepaalde, uit afzonderlijk telbare eenheden\
+            \ bestaande hoeveelheid."
+          format: int32
+    GeheleOntheffing:
+      required:
+      - oordeel
+      - datumOordeel
+      - grond
+      type: object
+      properties:
+        oordeel:
+          $ref: '#/components/schemas/AanvraagOordeel'
+        datumOordeel:
+          type: string
+          description: 'De datum waarop het besluit betreffende de aanvraag is genomen. '
+          format: date
+        grond:
+          $ref: '#/components/schemas/OntheffingsgrondInburgering'
+    Ontheffing:
+      type: object
+      properties:
+        GeheleOntheffing:
+          $ref: '#/components/schemas/GeheleOntheffing'
+        GedeeltelijkeOntheffing:
+          $ref: '#/components/schemas/GedeeltelijkeOntheffing'
+    OntheffingsgrondInburgering:
+      type: string
+      description: Basis voor de ontheffing van de Inburgeringsplicht.
+      enum:
+      - BIO
+      - MED
+    OntheffingsgrondInburgeringDescription:
+      type: string
+      description: Basis voor de ontheffing van de Inburgeringsplicht.
+      enum:
+      - Bijzondere individuele omstandigheden
+      - Medisch
+      x-enum-varnames:
+      - BIO
+      - MED
+  parameters:
+    BerichtId:
+      name: berichtId
+      in: header
+      description: Unieke identificatie ten aanzien van traceerbaarheid en beheer
+        op het verzoek- en antwoordbericht. Het berichtId wordt bij elk verzoekbericht
+        willekeurig gegenereerd. In het antwoordbericht wordt vervolgens hetzelfde
+        berichtId teruggegeven als het verzoekbericht.
+      required: true
+      schema:
+        type: string
+        description: Universeel unieke identificatie in hexadecimale getallen.
+        format: uuid
+    Bron:
+      name: bron
+      in: header
+      description: Bron organisatie waar het bericht vandaan komt.
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 20
+        type: string
+        description: Het OIN (Organisatie-identificatienummer) is een uniek identificerend
+          nummer dat gebruikt wordt door overheidspartijen of organisaties met een
+          publieke taak in de digitale communicatie met andere publieke of private
+          partijen
+    Bsn:
+      name: bsn
+      in: path
+      required: true
+      schema:
+        maxLength: 9
+        minLength: 9
+        pattern: "\\d{9}"
+        type: string
+        description: Het burgerservicenummer (BSN) is het nummer dat de natuurlijke
+          persoon uniek identificeert in overheidsadministraties.
+    Doel:
+      name: doel
+      in: header
+      description: Doel organisatie waar het bericht voor bestemd is.
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 20
+        type: string
+        description: Het OIN (Organisatie-identificatienummer) is een uniek identificerend
+          nummer dat gebruikt wordt door overheidspartijen of organisaties met een
+          publieke taak in de digitale communicatie met andere publieke of private
+          partijen

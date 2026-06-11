@@ -1,0 +1,344 @@
+#2025-11-18_Examen_rev9710
+openapi: 3.0.0
+info:
+  title: Examen API
+  description: 'Met deze API kunnen de examenresultaten en het aantal gratis examenpogingen
+    tegoed van een inburgeringsplichtige worden geraadpleegd. '
+  version: 1.0.0
+paths:
+  /personen/{bsn}/examens/gratispogingen:
+    get:
+      tags:
+      - Gratis Pogingen Tegoed
+      summary: Raadplegen van het aantal gratis examenpogingen dat een persoon nog
+        tegoed heeft per examenonderdeel.
+      operationId: getGratisPogingenTegoedByBsn
+      parameters:
+      - $ref: '#/components/parameters/Bsn'
+      - $ref: '#/components/parameters/BerichtId'
+      - $ref: '#/components/parameters/Bron'
+      - $ref: '#/components/parameters/Doel'
+      responses:
+        "200":
+          description: OK
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+          content:
+            application/json:
+              schema:
+                maxItems: 500
+                type: array
+                items:
+                  $ref: '#/components/schemas/GratisPogingTegoed'
+        "400":
+          description: Fout verzoek
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "403":
+          description: Niet geautoriseerd
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "404":
+          description: Niet gevonden
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+  /personen/{bsn}/examens/resultaten:
+    get:
+      tags:
+      - Resultaten
+      summary: Raadplegen van de examenresultaten van een inburgeringsplichtige
+      operationId: getExamenresultatenByBsn
+      parameters:
+      - $ref: '#/components/parameters/Bsn'
+      - $ref: '#/components/parameters/Doel'
+      - $ref: '#/components/parameters/Bron'
+      - $ref: '#/components/parameters/BerichtId'
+      responses:
+        "200":
+          description: OK
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+          content:
+            application/json:
+              schema:
+                maxItems: 500
+                type: array
+                items:
+                  $ref: '#/components/schemas/Examenresultaat'
+        "400":
+          description: Fout verzoek
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "403":
+          description: Niet geautoriseerd
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "404":
+          description: Niet gevonden
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+components:
+  schemas:
+    ExamenniveauWI2021:
+      type: string
+      description: De verschillende niveaus van de examens voor de Wet Inburgering
+        2021.
+      enum:
+      - A2
+      - B1
+      - B2
+    ExamenonderdeelWI2021Inburgering:
+      type: string
+      description: De examenonderdelen van het inburgeringsexamen voor de Wet Inburgering
+        2021.
+      enum:
+      - KNM
+      - LE
+      - LU
+      - SC
+      - SP
+    ExamenonderdeelWI2021InburgeringDescription:
+      type: string
+      description: De examenonderdelen van het inburgeringsexamen voor de Wet Inburgering
+        2021.
+      enum:
+      - Kennis van de Nederlandse Maatschappij
+      - Leesvaardigheid
+      - Luistervaardigheid
+      - Schrijfvaardigheid
+      - Spreekvaardigheid
+      x-enum-varnames:
+      - KNM
+      - LE
+      - LU
+      - SC
+      - SP
+    Examenresultaat:
+      required:
+      - examendatum
+      - resultaat
+      - onderdeel
+      type: object
+      properties:
+        examendatum:
+          type: string
+          description: De datum waarop het examen wordt afgenomen.
+          format: date
+        resultaat:
+          $ref: '#/components/schemas/ExamenresultaatWI2021'
+        redenGeenResultaat:
+          $ref: '#/components/schemas/RedenGeenResultaatInburgeringsexamen'
+        onderdeel:
+          $ref: '#/components/schemas/ExamenonderdeelWI2021Inburgering'
+        niveau:
+          $ref: '#/components/schemas/ExamenniveauWI2021'
+    ExamenresultaatWI2021:
+      type: string
+      description: "Het resultaat geslaagd, gezakt of geen resultaat van een examenonderdeel\
+        \ op een examendatum te bepalen."
+      enum:
+      - Geslaagd
+      - Gezakt
+      - Geen
+    ExamenresultaatWI2021Description:
+      type: string
+      description: "Het resultaat geslaagd, gezakt of geen resultaat van een examenonderdeel\
+        \ op een examendatum te bepalen."
+      enum:
+      - Geslaagd voor het examen
+      - Niet geslaagd voor het examen
+      - Geen resultaat te bepalen
+      x-enum-varnames:
+      - GESLAAGD
+      - GEZAKT
+      - GEEN
+    GratisPogingTegoed:
+      required:
+      - onderdeel
+      - gratisPogingenTegoed
+      type: object
+      properties:
+        onderdeel:
+          $ref: '#/components/schemas/ExamenonderdeelWI2021Inburgering'
+        gratisPogingenTegoed:
+          maximum: 99
+          minimum: 0
+          type: integer
+          description: "Een bepaalde, uit afzonderlijk telbare eenheden bestaande\
+            \ hoeveelheid."
+          format: int32
+    RedenGeenResultaatInburgeringsexamen:
+      type: string
+      description: De reden waarom er geen resultaat van een examenonderdeel op een
+        examendatum kan worden bepaald.
+      enum:
+      - Verwijtbaar
+      - Nietverwijtbaar
+      - Afgemeld
+      - Absent
+    RedenGeenResultaatInburgeringsexamenDescription:
+      type: string
+      description: De reden waarom er geen resultaat van een examenonderdeel op een
+        examendatum kan worden bepaald.
+      enum:
+      - "Verwijtbaar: bijvoorbeeld, een Inburgeraar heeft fraude bij examen gepleegd;\
+        \ niet komen opdagen door eigen schuld."
+      - "Niet verwijtbaar: bijvoorbeeld,: *) Als de Inburgeraar de gemaakte afspraak\
+        \ voor het afleggen van het Examenonderdeel uiterlijk tot 14 dagen voor de\
+        \ Examendatum verzet of annuleert. *) Ziek worden tijdens het examen. *) Als\
+        \ de Inburgeraar buiten zijn schuld om niet op het Examen komt opdagen of\
+        \ het Examen niet tijdig kon verzetten of annuleren. *) Als DUO het Examen\
+        \ wegens overmacht moet annuleren, bijvoorbeeld in het geval van een ICT-storing."
+      - De kandidaat heeft zich afgemeld voor het examen
+      - De kandidaat was absent op het examen
+      x-enum-varnames:
+      - VERWIJTBAAR
+      - NIETVERWIJTBAAR
+      - AFGEMELD
+      - ABSENT
+  parameters:
+    BerichtId:
+      name: berichtId
+      in: header
+      description: Unieke identificatie ten aanzien van traceerbaarheid en beheer
+        op het verzoek- en antwoordbericht. Het berichtId wordt bij elk verzoekbericht
+        willekeurig gegenereerd. In het antwoordbericht wordt vervolgens hetzelfde
+        berichtId teruggegeven als het verzoekbericht.
+      required: true
+      schema:
+        type: string
+        description: Universeel unieke identificatie in hexadecimale getallen.
+        format: uuid
+    Bron:
+      name: bron
+      in: header
+      description: Bron organisatie waar het bericht vandaan komt.
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 20
+        type: string
+        description: Het OIN (Organisatie-identificatienummer) is een uniek identificerend
+          nummer dat gebruikt wordt door overheidspartijen of organisaties met een
+          publieke taak in de digitale communicatie met andere publieke of private
+          partijen
+    Bsn:
+      name: bsn
+      in: path
+      required: true
+      schema:
+        maxLength: 9
+        minLength: 9
+        pattern: "\\d{9}"
+        type: string
+        description: Het burgerservicenummer (BSN) is het nummer dat de natuurlijke
+          persoon uniek identificeert in overheidsadministraties.
+    Doel:
+      name: doel
+      in: header
+      description: Doel organisatie waar het bericht voor bestemd is.
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 20
+        type: string
+        description: Het OIN (Organisatie-identificatienummer) is een uniek identificerend
+          nummer dat gebruikt wordt door overheidspartijen of organisaties met een
+          publieke taak in de digitale communicatie met andere publieke of private
+          partijen

@@ -1,0 +1,506 @@
+#2026-02-09_Inburgeringsaanbod_rev10675
+openapi: 3.0.0
+info:
+  title: Inburgeringsaanbod API
+  description: "Met deze API kan het inburgeringsaanbod gemuteerd worden. \n\nHet\
+    \ inburgeringsaanbod betreft de cursus(sen) of opleiding(en) bij een Cursusinstelling\
+    \ die de Gemeente aanbiedt bij de Inburgeraar waarmee de Inburgeraar de op grond\
+    \ van artikel 15 vastgestelde Leerroute in het PIP kan voldoen. \n\nWet inburgering\
+    \ (2021), artikel 16."
+  version: 1.2.0
+paths:
+  /instellingen:
+    get:
+      tags:
+      - Instellingen
+      summary: Raadplegen van een lijst met bekende instellingen met een BoW en/of
+        TST keurmerk.
+      operationId: getInstellingen
+      parameters:
+      - $ref: "#/components/parameters/Bron"
+      - $ref: "#/components/parameters/BerichtId"
+      - $ref: "#/components/parameters/Doel"
+      responses:
+        "200":
+          description: OK
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+          content:
+            application/json:
+              schema:
+                maxItems: 200
+                type: array
+                items:
+                  $ref: "#/components/schemas/Instelling"
+        "400":
+          description: Fout verzoek
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "500":
+          description: Interne server fout
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "503":
+          description: Service niet beschikbaar
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+  /personen/{bsn}/Inburgeringsaanbod/{instellingsnummer}:
+    post:
+      tags:
+      - Inburgeringsaanbod
+      summary: Registreren van een inburgeringsaanbod voor een persoon bij een instelling.
+        Per instelling wordt er één actueel inburgeringsaanbod geaccepteerd.
+      operationId: postInburgeringsaanbodByBsnAndInstellingsnummer
+      parameters:
+      - $ref: "#/components/parameters/Bsn"
+      - $ref: "#/components/parameters/Instellingsnummer"
+      - $ref: "#/components/parameters/Bron"
+      - $ref: "#/components/parameters/BerichtId"
+      - $ref: "#/components/parameters/Doel"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Inburgeringsaanbod"
+        required: true
+      responses:
+        "201":
+          description: Inburgeringsaanbod geregistreerd
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "400":
+          description: Fout verzoek
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "403":
+          description: Niet geautoriseerd
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+          content:
+            application/json:
+              schema:
+                maxItems: 100
+                type: array
+                items:
+                  $ref: "#/components/schemas/Foutmelding"
+        "404":
+          description: Niet gevonden
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "500":
+          description: Interne server fout
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "503":
+          description: Service niet beschikbaar
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+    delete:
+      tags:
+      - Inburgeringsaanbod
+      summary: Verwijderen van een inburgeringsaanbod voor een persoon bij een instelling.
+      operationId: deleteInburgeringsaanbodByBsnAndInstellingsnumer
+      parameters:
+      - $ref: "#/components/parameters/Bsn"
+      - $ref: "#/components/parameters/Instellingsnummer"
+      - $ref: "#/components/parameters/BerichtId"
+      - $ref: "#/components/parameters/Bron"
+      - $ref: "#/components/parameters/Doel"
+      responses:
+        "204":
+          description: Inburgeringsaanbod verwijderd
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "400":
+          description: Fout verzoek
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "403":
+          description: Niet geautoriseerd
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+          content:
+            application/json:
+              schema:
+                maxItems: 10
+                type: array
+                items:
+                  $ref: "#/components/schemas/Foutmelding"
+        "404":
+          description: Niet gevonden
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "500":
+          description: Interne server fout
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "503":
+          description: Service niet beschikbaar
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+components:
+  schemas:
+    Alfabetiseringsonderwijs:
+      type: string
+      description: Een traject voor een analfabeet of anders-gealfabetiseerde om de
+        basis van de Nederlandse taal te leren als onderdeel van de leerroute.
+      enum:
+      - A
+      - AA
+      - NVT
+    Foutmelding:
+      type: object
+      properties:
+        fouttekst:
+          maxLength: 200
+          type: string
+          description: Uitleg van een functionele foutsituatie
+    Inburgeringsaanbod:
+      required:
+      - indicatorAlfabetiseringsonderwijs
+      type: object
+      properties:
+        datumInburgeringsaanbod:
+          type: string
+          description: "De inschrijfdatum van een Asielstatushouder bij een Cursusinstelling\
+            \ voor een cursus of een opleiding. \n\nVoor B1- en Z-route is de datum\
+            \ inburgeringsaanbod tevens de startdatum voor het taalonderwijs en KNM.;\
+            \ Verbijzondering van: De datum die het begin van de periode aangeeft\
+            \ (inclusief)."
+          format: date
+        verwachteStartdatumOpleiding:
+          type: string
+          description: "De datum waarop de de cursus of opleiding uit het Inburgeringsaanbod\
+            \ start.; Verbijzondering van: De datum die het begin van de periode aangeeft\
+            \ (inclusief)."
+          format: date
+        verwachteEinddatumOpleiding:
+          type: string
+          description: "De verwachte datum waarop de de cursus of opleiding uit het\
+            \ Inburgeringsaanbod (voortijdig) eindigd.; Verbijzondering van: De datum\
+            \ die het einde van de periode aangeeft (exclusief)."
+          format: date
+        indicatorAlfabetiseringsonderwijs:
+          $ref: "#/components/schemas/Alfabetiseringsonderwijs"
+    Instelling:
+      required:
+      - instellingsnummer
+      - naam
+      - postcode
+      - huisnummer
+      - plaatsnaam
+      type: object
+      properties:
+        instellingsnummer:
+          maxLength: 10
+          minLength: 10
+          type: string
+          description: "Een uniek nummer dat een Cursusinstelling identificeert; Verbijzondering\
+            \ van: Uniek identificatienummer waaronder een zakenrelatie in het Informatiesysteem\
+            \ Inburgering is geregistreerd."
+        naam:
+          maxLength: 128
+          minLength: 1
+          type: string
+          description: Algemeen gegevenstype voor het vastleggen van een naam.
+        postcode:
+          maxLength: 6
+          pattern: "([1-9]{1}[0-9]{3}[A-Z]{2})"
+          type: string
+          description: De door de Post NL vastgestelde code behorend bij de straatnaam
+            en het huisnummer dan wel de door Post NL vastgestelde code behorende
+            bij een bepaalde combinatie van een naam openbare ruimte en een huisnummer.
+        huisnummer:
+          maximum: 99999
+          minimum: 1
+          type: integer
+          description: De numerieke aanduiding zoals deze door het gemeentebestuur
+            aan het object is toegekend.
+          format: int32
+        huisnummertoevoeging:
+          maxLength: 4
+          minLength: 1
+          type: string
+          description: "Die letters of tekens die noodzakelijk zijn om, naast het\
+            \ juiste huisnummer en huisletter, de brievenbus te vinden."
+        plaatsnaam:
+          maxLength: 40
+          minLength: 1
+          type: string
+          description: De naam van de plaats.
+        bow:
+          minLength: 1
+          pattern: "^\\d{1,10}$"
+          type: string
+          description: "Registratienummer van de cursusinstelling bij Stichting Blik\
+            \ op Werk; Verbijzondering van: Unieke identificatie van een organisatie\
+            \ door een registratienummer. "
+        brin:
+          maxLength: 4
+          minLength: 4
+          pattern: "([0-9]{2}[A-Z]{2})"
+          type: string
+          description: Een unieke identificatie voor een onderwijsinstellingserkenning
+            in de Registratie Instellingen en Opleidingen.
+        indicatieBowKeurmerk:
+          type: boolean
+          description: "Indicatie of de instelling over een BoW keurmerk beschikt.;\
+            \ Verbijzondering van: Algemeen gegevenstype voor het vastleggen van een\
+            \ boolean waarde"
+        indicatieTstKeurmerk:
+          type: boolean
+          description: "Indicatie of de instelling over een Taalschakeltraject keurmerk\
+            \ beschikt.; Verbijzondering van: Algemeen gegevenstype voor het vastleggen\
+            \ van een boolean waarde"
+  parameters:
+    BerichtId:
+      name: berichtId
+      in: header
+      description: Unieke identificatie ten aanzien van traceerbaarheid en beheer
+        op het verzoek- en antwoordbericht. Het berichtId wordt bij elk verzoekbericht
+        willekeurig gegenereerd. In het antwoordbericht wordt vervolgens hetzelfde
+        berichtId teruggegeven als het verzoekbericht.
+      required: true
+      schema:
+        type: string
+        description: Universeel unieke identificatie in hexadecimale getallen.
+        format: uuid
+    Bron:
+      name: bron
+      in: header
+      description: Bron organisatie waar het bericht vandaan komt.
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 20
+        type: string
+        description: Het OIN (Organisatie-identificatienummer) is een uniek identificerend
+          nummer dat gebruikt wordt door overheidspartijen of organisaties met een
+          publieke taak in de digitale communicatie met andere publieke of private
+          partijen
+    Bsn:
+      name: bsn
+      in: path
+      required: true
+      schema:
+        maxLength: 9
+        minLength: 9
+        pattern: "\\d{9}"
+        type: string
+        description: Het burgerservicenummer (BSN) is het nummer dat de natuurlijke
+          persoon uniek identificeert in overheidsadministraties.
+    Doel:
+      name: doel
+      in: header
+      description: Doel organisatie waar het bericht voor bestemd is.
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 20
+        type: string
+        description: Het OIN (Organisatie-identificatienummer) is een uniek identificerend
+          nummer dat gebruikt wordt door overheidspartijen of organisaties met een
+          publieke taak in de digitale communicatie met andere publieke of private
+          partijen
+    Instellingsnummer:
+      name: instellingsnummer
+      in: path
+      required: true
+      schema:
+        maxLength: 10
+        minLength: 10
+        type: string
+        description: Uniek identificatienummer waaronder een zakenrelatie in het Informatiesysteem
+          Inburgering is geregistreerd.

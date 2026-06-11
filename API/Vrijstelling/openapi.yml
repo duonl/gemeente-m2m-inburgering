@@ -1,0 +1,299 @@
+#2025-11-04_Vrijstelling_rev9472
+openapi: 3.0.0
+info:
+  title: Vrijstelling API
+  description: 'Met deze API kunnen de vrijstellingen van een inburgeringsplichtige
+    worden geraadpleegd. '
+  version: 1.0.0
+paths:
+  /personen/{bsn}/vrijstellingen:
+    get:
+      tags:
+      - Vrijstelling
+      summary: Raadplegen van vrijstellingen inburgeringsplichtige
+      operationId: getVrijstellingenByBsn
+      parameters:
+      - $ref: '#/components/parameters/Bsn'
+      - $ref: '#/components/parameters/Bron'
+      - $ref: '#/components/parameters/BerichtId'
+      - $ref: '#/components/parameters/Doel'
+      responses:
+        "200":
+          description: OK
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+          content:
+            application/json:
+              schema:
+                maxItems: 200
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vrijstelling'
+        "400":
+          description: Fout verzoek
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "403":
+          description: Niet geautoriseerd
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "404":
+          description: Niet gevonden
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+components:
+  schemas:
+    AanvraagOordeel:
+      type: string
+      description: Het ambtelijk eindoordeel op een ingediende aanvraag van een burger
+        bij de overheid.
+      enum:
+      - Toekenning
+      - Afwijzing
+    ExamenniveauGedeeltelijkeVrijstelling:
+      type: string
+      description: Gedeeltelijke vrijstellingen zijn gekoppeld aan een minimale taalbeheersing
+        op A2 of B1 niveau.
+      enum:
+      - A2
+      - B1
+    ExamenonderdeelNederlands:
+      type: string
+      description: Deel van het Inburgeringsexamen is de examinering van de mondelinge
+        en schriftelijke vaardigheden in de Nederlandse taal.
+      enum:
+      - LE
+      - LU
+      - SC
+      - SP
+    ExamenonderdeelNederlandsDescription:
+      type: string
+      description: Deel van het Inburgeringsexamen is de examinering van de mondelinge
+        en schriftelijke vaardigheden in de Nederlandse taal.
+      enum:
+      - Leesvaardigheid
+      - Luistervaardigheid
+      - Schrijfvaardigheid
+      - Spreekvaardigheid
+      x-enum-varnames:
+      - LE
+      - LU
+      - SC
+      - SP
+    GedeeltelijkeVrijstelling:
+      required:
+      - reden
+      - oordeel
+      type: object
+      properties:
+        reden:
+          $ref: '#/components/schemas/RedenVrijstellingInburgeringsplicht'
+        oordeel:
+          $ref: '#/components/schemas/AanvraagOordeel'
+        datumOordeel:
+          type: string
+          description: 'De datum waarop het besluit betreffende de aanvraag is genomen. '
+          format: date
+        examenonderdeel:
+          $ref: '#/components/schemas/ExamenonderdeelNederlands'
+        examenniveau:
+          $ref: '#/components/schemas/ExamenniveauGedeeltelijkeVrijstelling'
+    GeheleVrijstelling:
+      required:
+      - oordeel
+      - reden
+      type: object
+      properties:
+        oordeel:
+          $ref: '#/components/schemas/AanvraagOordeel'
+        reden:
+          $ref: '#/components/schemas/RedenVrijstellingInburgeringsplicht'
+        datumOordeel:
+          type: string
+          description: 'De datum waarop het besluit betreffende de aanvraag is genomen. '
+          format: date
+    RedenVrijstellingInburgeringsplicht:
+      type: string
+      description: De verschillende redenen waarom een inburgeringsplichtige vrijstelling
+        heeft gekregen van een gedeelte of de gehele inburgeringsplicht.
+      enum:
+      - AVI
+      - DIP
+      - DOC
+      - GED
+      - INB
+      - INS
+      - OPL
+    RedenVrijstellingInburgeringsplichtDescription:
+      type: string
+      description: De verschillende redenen waarom een inburgeringsplichtige vrijstelling
+        heeft gekregen van een gedeelte of de gehele inburgeringsplicht.
+      enum:
+      - "Op verzoek beoordeelde situatie aantoonbaar voldoende ingeburgerd. (Vrijstelling\
+        \ door artikel 2.3, Besluit inburgering)."
+      - "Bezit door DUO erkend vrijstellend diploma (DUO register). In Nederland behaald\
+        \ diploma (Vrijstelling door artikel 2.1 lid c, Regeling inburgering)."
+      - "Bezit door DUO erkende vrijstellend document (DUO handmatig). • In Nederland\
+        \ behaald diploma (Vrijstelling door artikel 2.1 lid c, Regeling inburgering)\
+        \ • Behaald diploma met Nederlandstalig onderwijs in Aruba, Curaçao, Sint\
+        \ Maarten, Suriname of België (Vrijstelling door artikel 2.1 lid d, Regeling\
+        \ inburgering) • Behaald diploma met Nederlandstalig onderwijs in Bonaire,\
+        \ Sint Eustatius of Saba (Vrijstelling door artikel 2.1 lid e, Regeling inburgering)\
+        \ • Behaald diploma met Nederlandstalig onderwijs in buitenland overig, minimaal\
+        \ B1 niveau. (Vrijstelling door artikel 2.1 lid f, Regeling inburgering)."
+      - "Gedeeltelijke vrijstelling: • Behaald NT2 onderdeel op minimaal B1 niveau\
+        \ (Gedeeltelijke Vrijstelling door artikel 3.12 lid a, Regeling inburgering)\
+        \ • Behaald taalniveau in VO op minimaal B1 niveau (Gedeeltelijke Vrijstelling\
+        \ door artikel 3.12 lid b, Regeling inburgering) • Behaald taalniveau Nederlands\
+        \ als vreemde taal op minimaal B1 niveau (Gedeeltelijke Vrijstelling door\
+        \ artikel 3.12 lid c, Regeling inburgering) • Behaald taalniveau Nederlands\
+        \ in buitenlandse opleiding op minimaal B1 niveau (Gedeeltelijke Vrijstelling\
+        \ door artikel 3.12 lid d, Regeling inburgering) • Op verzoek beoordeelde\
+        \ vrijstelling taal op A2 niveau (Gedeeltelijke Vrijstelling door artikel\
+        \ 3.13 lid a, Regeling inburgering) • Op verzoek beoordeelde vrijstelling\
+        \ taal op A2 niveau (Gedeeltelijke Vrijstelling door artikel 3.13 lid b, Regeling\
+        \ inburgering)."
+      - "Behaald inburgeringsdiploma onder de WI 2013, inclusief de taalonderdelen\
+        \ op minimaal B1 niveau (via NT2) (Vrijstelling door artikel 2.1 lid b, Regeling\
+        \ inburgering)."
+      - Tijdelijke vrijstelling op verzoek door bewijs van inschrijving welke handmatig
+        is beoordeeld.
+      - Voor de inschrijving op een vervolgopleiding is door DUO ambtshalve een tijdelijke
+        vrijstelling toegekend.
+      x-enum-varnames:
+      - AVI
+      - DIP
+      - DOC
+      - GED
+      - INB
+      - INS
+      - OPL
+    TijdelijkeVrijstelling:
+      required:
+      - oordeel
+      - reden
+      type: object
+      properties:
+        oordeel:
+          $ref: '#/components/schemas/AanvraagOordeel'
+        reden:
+          $ref: '#/components/schemas/RedenVrijstellingInburgeringsplicht'
+        datumOordeel:
+          type: string
+          description: 'De datum waarop het besluit betreffende de aanvraag is genomen. '
+          format: date
+        startdatum:
+          type: string
+          description: De datum die het begin van de periode aangeeft (inclusief).
+          format: date
+        einddatum:
+          type: string
+          description: De datum die het einde van de periode aangeeft (inclusief).
+          format: date
+    Vrijstelling:
+      type: object
+      properties:
+        GeheleVrijstelling:
+          $ref: '#/components/schemas/GeheleVrijstelling'
+        TijdelijkeVrijstelling:
+          $ref: '#/components/schemas/TijdelijkeVrijstelling'
+        GedeeltelijkeVrijstelling:
+          $ref: '#/components/schemas/GedeeltelijkeVrijstelling'
+  parameters:
+    BerichtId:
+      name: berichtId
+      in: header
+      description: Unieke identificatie ten aanzien van traceerbaarheid en beheer
+        op het verzoek- en antwoordbericht. Het berichtId wordt bij elk verzoekbericht
+        willekeurig gegenereerd. In het antwoordbericht wordt vervolgens hetzelfde
+        berichtId teruggegeven als het verzoekbericht.
+      required: true
+      schema:
+        type: string
+        description: Universeel unieke identificatie in hexadecimale getallen.
+        format: uuid
+    Bron:
+      name: bron
+      in: header
+      description: Bron organisatie waar het bericht vandaan komt.
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 20
+        type: string
+        description: Het OIN (Organisatie-identificatienummer) is een uniek identificerend
+          nummer dat gebruikt wordt door overheidspartijen of organisaties met een
+          publieke taak in de digitale communicatie met andere publieke of private
+          partijen
+    Bsn:
+      name: bsn
+      in: path
+      required: true
+      schema:
+        maxLength: 9
+        minLength: 9
+        pattern: "\\d{9}"
+        type: string
+        description: Het burgerservicenummer (BSN) is het nummer dat de natuurlijke
+          persoon uniek identificeert in overheidsadministraties.
+    Doel:
+      name: doel
+      in: header
+      description: Doel organisatie waar het bericht voor bestemd is.
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 20
+        type: string
+        description: Het OIN (Organisatie-identificatienummer) is een uniek identificerend
+          nummer dat gebruikt wordt door overheidspartijen of organisaties met een
+          publieke taak in de digitale communicatie met andere publieke of private
+          partijen

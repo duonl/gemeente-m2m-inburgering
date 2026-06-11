@@ -1,0 +1,207 @@
+#2025-10-02_Notificatie_rev8940
+openapi: 3.0.0
+info:
+  title: Notificatie API
+  description: Generieke notificatie API voor machine to machine gegevensuitwisselingen
+    en toepassing van het signaleringspatroon in de inburgeringsketen.
+  version: 1.8.0
+paths:
+  /notificaties:
+    post:
+      tags:
+      - Notificatie
+      description: "Het aanmaken (of aanleveren) van een notificatie zodat de ontvangende\
+        \ ketenpartner op de hoogte gesteld wordt van een gebeurtenis bij een andere\
+        \ ketenpartner en actie kan ondernemen. \n\n"
+      operationId: opvoerenNotificatie
+      parameters:
+      - $ref: '#/components/parameters/Bron'
+      - $ref: '#/components/parameters/Doel'
+      - $ref: '#/components/parameters/BerichtId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Notificatie'
+        required: true
+      responses:
+        "201":
+          description: Opvoeren notificatie gelukt
+          headers:
+            API-Version:
+              description: Versie van de API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "400":
+          description: Het verzoek voldoet niet aan de specificatie
+          headers:
+            API-Version:
+              description: Versie van de API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "401":
+          description: De afzender kan niet geauthentiseerd en/of geïdentificeerd
+            worden
+          headers:
+            API-Version:
+              description: Versie van de API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "403":
+          description: Niet geautoriseerd
+          headers:
+            API-Version:
+              description: Versie van de API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "500":
+          description: 'De server kan niet antwoorden door een (interne) fout '
+          headers:
+            API-Version:
+              description: Versie van de API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "503":
+          description: De methode is niet beschikbaar vanwege gepland onderhoud
+          headers:
+            API-Version:
+              description: Versie van de API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Foutmelding'
+components:
+  schemas:
+    Foutmelding:
+      required:
+      - fouttekst
+      type: object
+      properties:
+        fouttekst:
+          maxLength: 200
+          type: string
+          description: Uitleg van een functionele foutsituatie
+    Notificatie:
+      required:
+      - registratieDatumTijd
+      - gebeurtenisId
+      type: object
+      properties:
+        registratieDatumTijd:
+          type: string
+          description: Algemeen gegevenstype voor het vastleggen van datum en tijdstip
+          format: date-time
+        bsn:
+          maxLength: 9
+          minLength: 9
+          pattern: "\\d{9}"
+          type: string
+          description: Het burgerservicenummer (BSN) is het nummer dat de natuurlijke
+            persoon uniek identificeert in overheidsadministraties.
+        vNummer:
+          maximum: 9999999999
+          minimum: 0
+          type: integer
+          description: Uniek identificatienummer door de Nederlandse overheid uitgereikt
+            aan een vreemdeling na registratie in de vreemdelingenadministratie.
+          format: int64
+        gebeurtenisId:
+          maxLength: 6
+          minLength: 1
+          pattern: "^[0-9A-Z]{1,6}$"
+          type: string
+          description: Identificatienummer van de gebeurtenis. Een gebeurtenis is
+            de representatie in het systeem van iets dat in de werkelijkheid is gebeurd.
+  parameters:
+    BerichtId:
+      name: berichtId
+      in: header
+      description: Identificatie van het bericht
+      required: true
+      schema:
+        type: string
+        description: Universeel unieke identificatie in hexadecimale getallen.
+        format: uuid
+    Bron:
+      name: bron
+      in: header
+      description: Identificatie van de organisatie die een bericht stuurt
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 20
+        type: string
+        description: Het OIN (Organisatie-identificatienummer) is een uniek identificerend
+          nummer dat gebruikt wordt door overheidspartijen of organisaties met een
+          publieke taak in de digitale communicatie met andere publieke of private
+          partijen
+    Doel:
+      name: doel
+      in: header
+      description: Identificatie van de organisatie waar een bericht voor bedoeld
+        is
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 20
+        type: string
+        description: Het OIN (Organisatie-identificatienummer) is een uniek identificerend
+          nummer dat gebruikt wordt door overheidspartijen of organisaties met een
+          publieke taak in de digitale communicatie met andere publieke of private
+          partijen
