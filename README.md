@@ -1,7 +1,4 @@
 # Inburgeringsketen M2M gegevensuitwisseling DUO en Gemeente 
-**Inhoudsopgave**
-
-[TOC]
 
 # Introductie
 De informatie op deze pagina is opgesteld voor de gegevensuitwisseling in de inburgeringsketen tussen Dienst Uitvoering Onderwijs (DUO) en een gemeente. 
