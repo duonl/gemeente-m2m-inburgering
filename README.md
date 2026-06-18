@@ -134,7 +134,15 @@ De Datum ondertekening PVT met indicatie verwijtbaarheid moet aan de volgende vo
 Het doorgeven van de Datum ondertekening PVT en indicatie verwijtbaarheid gebeurt via een PUT methode. Hierbij wordt de gehele resource vervangen door de inhoud uit het verzoekbericht. Het intrekken van een de Datum ondertekening PVT of indicatie verwijtbaarheid kan daarom door het betreffende onderdeel niet op te nemen in de body van het verzoekbericht.
 
 ## Gevolgde uren
-Zie voor meer informatie omtrent de gevolgde uren de 'Handleiding Portal Inburgering Wet inburgering 2021' de paragraaf 'Deelgenomen uren en uren taalles en KNM'.
+Zie voor meer informatie omtrent de redenen voor het doorgeven van de gevolgde uren de 'Handleiding Portal Inburgering Wet inburgering 2021' de paragraaf 'Deelgenomen uren en uren taalles en KNM'.
+
+Voor de uren Taalles en KNM bij de instelling gelden de volgende controles:
+* De instelling moet bekend zijn bij DUO met een geldig BoW of in het geval van de onderwijs leerrrout een TST keurmerk. De geldige instellingen kunnen worden geraadpleegd via de inburgeringsaanbod API.
+* De datum uit het verzoekbericht mag niet voor de startdatum van de inburgeringstermijn liggen
+* De datum uit het verzoekbericht mag niet in de toekomst liggen.
+* De datum uit het verzoekbericht mag niet voor de eerste (niet ingetrokken) inburgeringsaanbod van de instelling liggen
+* Er moet voor de instelling een inburgeringsaanbod zijn met een startdatum
+* Er mogen alleen uren worden geregistreerd van hetzelfde type met dezelfde of een latere datum.
 
 ## Enumeratie omschrijving
 De omschrijving van enumeratiewaarden die uit een code of cijfer bestaan is in een losstaand 'Description' schema opgenomen in de open API specificatie. Zie hieronder een voorbeeld van een open api specificatie van de enumeratie voor 'Alfabetiseringsonderwijs', waarbij:
@@ -177,25 +185,23 @@ Het PKIO certificaat moet aan de volgende eisen voldoen:
 
 # Gerealiseerde API's binnen gegevensuitwisseling
 
-| Open API Specificatie                                        | Versie | Versiedatum| Stelseldienst | Changelog |
-|------------------------------------------------------------- | ---    | ---        | ---           |  ---      |
-| [Notificatie](API/Notificatie/openapi.yml)                   | V1.8.0 | 02-10-2025 | n.v.t.        | [Notificatie](API/Notificatie/CHANGELOG.md) |
-| [Inburgeringsplicht](API/Inburgeringsplicht/openapi.yml)     | V1.2.2 | 31-03-2025 | SDI005        | [Inburgeringsplicht](API/Inburgeringsplicht/CHANGELOG.md) |
-| [Leerbaarheidstoets](API/Leerbaarheidstoets/openapi.yml)     | V1.2.0 | 06-11-2024 | SDI006        |[Leerbaarheidstoets](API/Leerbaarheidstoets/CHANGELOG.md) |
-| [Inburgeringstermijn](API/Inburgeringstermijn/openapi.yml)   | V1.0.0 | 07-11-2024 | SDI007        |[Inburgeringstermijn](API/Inburgeringstermijn/CHANGELOG.md) |
-| [Vrijstelling](API/Vrijstelling/openapi.yml)                 | V1.0.0 | 12-08-2025 | SDI012        |[Vrijstelling](API/Vrijstelling/CHANGELOG.md) |
-| [Ontheffing](API/Ontheffing/openapi.yml)                     | V1.0.0 | 07-10-2025 | SDI013        |[Ontheffing](API/Ontheffing/CHANGELOG.md) |
-| [PIP](API/PIP/openapi.yml)                                   | V1.1.3 | 16-01-2025 | SDI014        |[PIP](API/PIP/CHANGELOG.md) |
-| [Contactpersoon](API/Contactpersoon/openapi.yml)             | V1.0.0 | 14-05-2025 | SDI014        |[Contactpersoon](API/Contactpersoon/CHANGELOG.md) |
-| [Inburgeringsaanbod](API/Inburgeringsaanbod/openapi.yml)     | V1.0.0 | 27-01-2025 | SDI014        |[Inburgeringsaanbod](API/Inburgeringsaanbod/CHANGELOG.md) |
-| [MAP, PVT, Z-route](API/MAP,PVT,Zroute/openapi.yml)          | V1.0.0 | 30-03-2026 | SDI016        |[MAP, PVT, Z-route](API/MAP,PVT,Zroute/CHANGELOG.md) |3
-| [Gevolgde Uren](API/GevolgdeUren/openapi.yml)                | V1.0.0 | 30-03-2026 | SDI016        |[Gevolgde Uren](API/GevolgdeUren/CHANGELOG.md) |
-| [Examen](API/Examen/openapi.yml)                             | V1.0.0 | 13-11-2025 | SDI017        | [Examen](API/Examen/CHANGELOG.md) |
+| Open API Specificatie                                        | Versie | Versiedatum| Stelseldienst Informatiemodel keten inburgering   | Changelog |
+|------------------------------------------------------------- | ---    | ---        | ---            |  ---      |
+| [Notificatie](API/Notificatie/openapi.yml)                   | V1.8.0 | 02-10-2025 | n.v.t.         | [Notificatie](API/Notificatie/CHANGELOG.md) |
+| [Inburgeringsplicht](API/Inburgeringsplicht/openapi.yml)     | V1.2.2 | 31-03-2025 | SDI005, SDI009 | [Inburgeringsplicht](API/Inburgeringsplicht/CHANGELOG.md) |
+| [Leerbaarheidstoets](API/Leerbaarheidstoets/openapi.yml)     | V1.2.0 | 06-11-2024 | SDI006         |[Leerbaarheidstoets](API/Leerbaarheidstoets/CHANGELOG.md) |
+| [Inburgeringstermijn](API/Inburgeringstermijn/openapi.yml)   | V1.0.0 | 07-11-2024 | SDI007         |[Inburgeringstermijn](API/Inburgeringstermijn/CHANGELOG.md) |
+| [Verlenging](API/Verlenging/openapi.yml)                     | V1.0.0 | 28-05-2026 | SDI011         |[Verlenging](API/Verlenging/CHANGELOG.md) |
+| [Vrijstelling](API/Vrijstelling/openapi.yml)                 | V1.0.0 | 12-08-2025 | SDI012         |[Vrijstelling](API/Vrijstelling/CHANGELOG.md) |
+| [Ontheffing](API/Ontheffing/openapi.yml)                     | V1.0.0 | 07-10-2025 | SDI013         |[Ontheffing](API/Ontheffing/CHANGELOG.md) |
+| [PIP](API/PIP/openapi.yml)                                   | V1.1.3 | 16-01-2025 | SDI014         |[PIP](API/PIP/CHANGELOG.md) |
+| [Contactpersoon](API/Contactpersoon/openapi.yml)             | V1.0.0 | 14-05-2025 | SDI014         |[Contactpersoon](API/Contactpersoon/CHANGELOG.md) |
+| [Inburgeringsaanbod](API/Inburgeringsaanbod/openapi.yml)     | V1.0.0 | 27-01-2025 | SDI014         |[Inburgeringsaanbod](API/Inburgeringsaanbod/CHANGELOG.md) |
+| [MAP, PVT, Z-route](API/MAP,PVT,Zroute/openapi.yml)          | V1.0.0 | 30-03-2026 | SDI016         |[MAP, PVT, Z-route](API/MAP,PVT,Zroute/CHANGELOG.md) |3
+| [Gevolgde Uren](API/GevolgdeUren/openapi.yml)                | V1.1.0 | 18-05-2026 | SDI016, SDI019 |[Gevolgde Uren](API/GevolgdeUren/CHANGELOG.md) |
+| [Examen](API/Examen/openapi.yml)                             | V1.0.0 | 13-11-2025 | SDI017         | [Examen](API/Examen/CHANGELOG.md) |
+| [Boete](API/Boete/openapi.yml)                               | V1.0.0 | 08-06-2026 | SDI018         | [Boete](API/Boete/CHANGELOG.md) |
 
 # Geplande API's (Roadmap)
 De onderstaande API's worden nog gerealiseerd binnen de scope van de VOI. Deze staan niet in volgorde van realisatie:
-- Notifiatie inburgeringsplichtige om reden (SDI008)
-- Beschikking voldaan inburgeringsplicht (SDI009)
-- Beoordeling aanvraag verlenging (SDI011)
-- Opgelegde Boete (SDI018)
-- Inspanning Inburgeraar bij instelling (SDI019)
+- Notificatie inburgeringsplichtige om reden (SDI008)
