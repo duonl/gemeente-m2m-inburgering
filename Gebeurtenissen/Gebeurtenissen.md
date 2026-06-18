@@ -1,7 +1,5 @@
 Deze pagina geeft een overzicht van de gebeurtenissen die DUO erkend binnen haar domein en hun relatie tot de verschillende API's die zijn gerealiseerd voor deze gegevensuitwisseling. Voor meer informatie met betrekking tot gebeurtenissen zie [Interactiepatronen](../Interactiepatronen/Interactiepatronen.md)
 
-[TOC]
-
 # Nieuwe inburgeringsplichtige
 DUO erkent onder deze gebeurtenissen de volgende situaties:
  - Reguliere nieuwe inburgeringsplichte
@@ -13,12 +11,12 @@ DUO erkent onder deze gebeurtenissen de volgende situaties:
 
 DUO signaleert de gemeente van de Inburgeringsplichtige zodra als de gemeente waaronder de inburgeringsplichtige valt vastgesteld is. Het type gebeurtenis hangt af van de achtergrond van de nieuwe inburgeringsplichtige:
 
-| gebeurtenisId | gebeurtenisomschrijving                                          | Relevante API's |
-| ---           | ---                                                              | ---             |
-| SS101         | Persoon is inburgeringsplichtig.                                  | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) <br>- Examenresultaten |
-| SS128         | Persoon is inburgeringsplichtig, maar bereikt AOW-leeftijd binnen 6 maanden. | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) <br>- Examenresultaten |
-| SS139         | Persoon is inburgeringsplichtig en de termijn van 10 weken voor vaststellen leerroute is gestart. <br>- Deze gebeurtenis verschijnt ook als de persoon al eerder aan de gemeente gekoppeld is, maar DUO nu vastgesteld heeft dat de persoon bij het COA uitgestroomd is en nu in de gemeente verblijft | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) <br>- Examenresultaten |
-| SS129         | Tijdelijke vrijstelling ingetrokken, nog geen leerroute bekend.   | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) <br>- Examenresultaten  <br>- [Vrijstelling](../API/Vrijstelling/openapi.yml) |
+| gebeurtenisId | gebeurtenisomschrijving                                                      | Relevante API's |
+| ---           | ---                                                                          | ---             |
+| SS101         | Persoon is inburgeringsplichtig.                                             | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) <br>- [Examen](../API's/Examen/openapi.yml) |
+| SS128         | Persoon is inburgeringsplichtig, maar bereikt AOW-leeftijd binnen 6 maanden. | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) <br>- [Examen](../API's/Examen/openapi.yml) |
+| SS139         | Persoon is inburgeringsplichtig en de termijn van 10 weken voor vaststellen leerroute is gestart. <br>- Deze gebeurtenis verschijnt ook als de persoon al eerder aan de gemeente gekoppeld is, maar DUO nu vastgesteld heeft dat de persoon bij het COA uitgestroomd is en nu in de gemeente verblijft | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) <br>- [Examen](../API's/Examen/openapi.yml) |
+| SS129         | Tijdelijke vrijstelling ingetrokken, nog geen leerroute bekend.   | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) <br>- [Examen](../API's/Examen/openapi.yml) <br>- [Vrijstelling](../API/Vrijstelling/openapi.yml) |
 
 # Wijziging van gemeente
 DUO erkent onder deze gebeurtensisen de volgende situaties waardoor een gemeente waaronder de inburgeringsplichtige valt wijzigt:
@@ -28,10 +26,10 @@ DUO erkent onder deze gebeurtensisen de volgende situaties waardoor een gemeente
 
 DUO signaleert de nieuwe gemeente ten behoeve van de inburgeringsplicht. De gebeurtenis hangt af van de situatie:
 
-| gebeurtenisId | gebeurtenisomschrijving                                          | Relevante API's |
-| ---           | ---                                                              | ---             |
-| SS120         | Inburgeringsplichte in gemeente gevestigd zonder PIP.            | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) <br>- Examenresultaten |
-| SS121         | Inburgeringsplichte in gemeente gevestigd met PIP vorige gemeente | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) <br>- [Inburgeringstermijn](../API/Inburgeringstermijn/openapi.yml) <br>- Examenresultaten |
+| gebeurtenisId | gebeurtenisomschrijving                                           | Relevante API's |
+| ---           | ---                                                               | ---             |
+| SS120         | Inburgeringsplichte in gemeente gevestigd zonder PIP.             | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) <br>- [Examen](../API's/Examen/openapi.yml) |
+| SS121         | Inburgeringsplichte in gemeente gevestigd met PIP vorige gemeente | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) <br>- [Inburgeringstermijn](../API/Inburgeringstermijn/openapi.yml) <br>- [Examen](../API's/Examen/openapi.yml) |
 
 
 # Wijziging doelgroep
@@ -51,7 +49,7 @@ De gemeente kan deze gebeurtenissen zien als aansporing om de administratie van 
 | gebeurtenisId | gebeurtenisomschrijving               | Relevante API's |
 | ---           | ---                                   | ---             |
 | SS109         | Tijdelijke vrijstelling toegekend     | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) <br> - [Vrijstelling](../API/Vrijstelling/openapi.yml) |
-| SS110         | Inburgeringsplicht ingetrokken:  <br> - intrekken verblijfsrecht / langer dan jaar uit NL <br> - genaturaliseerd <br> - AOW geworden <br> - genaturaliseerd <br> - overleden | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) |
+| SS110         | Inburgeringsplicht ingetrokken:  <br> - intrekken verblijfsrecht / langer dan jaar uit NL <br> - genaturaliseerd <br> - AOW geworden <br> - genaturaliseerd <br> - overleden    | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) |
 | SS111         | Persoon is overleden                  | - [Inburgeringsplicht](../API's/Inburgeringsplicht/openapi.yml) |
 
 # Inburgeringsplicht voldaan
@@ -77,7 +75,7 @@ Zodra de gemeente een PIP wijzigt of vaststelt, dan kan deze met PIP API (SDI014
 Voor de ad hoc aanroep van de gemeente kan ook reden zijn bij bijv. het melden van een nieuwe inburgeraar voor de gemeente (gebeurtenissen SS101/128/139/120/121/129/130)."
 
 ## Examenresultaten
-De gemeente kan bij DUO de examenresultaten bevragen via Examenresultaten API (SDI017). 
+De gemeente kan bij DUO de examenresultaten bevragen via Examen API (SDI017). 
 
 | gebeurtenisId | gebeurtenisomschrijving                  | Relevante API's |
 | ---           | ---                                      | ---      |
@@ -91,21 +89,30 @@ De inburgeringstermijn kan worden gewijzigd door de volgende situaties:
 | gebeurtenisId | gebeurtenisomschrijving                  | Relevante API's |
 | ---           | ---                                      | ---      |
 | SS103         | Termijn ambtshalve verlengd              | - [Inburgeringstermijn](../API/Inburgeringstermijn/openapi.yml) |
-| SS104         | Termijn op verzoek verlengd              | - [Inburgeringstermijn](../API/Inburgeringstermijn/openapi.yml) <br> - Beoordeling aanvraag verlenging (SDI014) |
-| SS130         | Tijdelijke vrijstelling ingetrokken, PIP al bekend. Eerdere inburgeringsplicht wordt hervat, maar leerroute was al door huidige of eerdere gemeente voor de tijdelijke vrijstelling vastgesteld       | - [Inburgeringsplicht](../API/Inburgeringsplicht/openapi.yml) <br> - [Inburgeringstermijn](../API/Inburgeringstermijn/openapi.yml) <br> - [PIP](../API/PIP/openapi.yml) <br> - Examenresultaten (SDI017) <br> - [Vrijstelling](../API/Vrijstelling/openapi.yml) |
+| SS104         | Termijn op verzoek verlengd              | - [Inburgeringstermijn](../API/Inburgeringstermijn/openapi.yml) <br> - [Verlenging](../API/Verlenging/openapi.yml) |
+| SS130         | Tijdelijke vrijstelling ingetrokken, PIP al bekend. Eerdere inburgeringsplicht wordt hervat, maar leerroute was al door huidige of eerdere gemeente voor de tijdelijke vrijstelling vastgesteld       | - [Inburgeringsplicht](../API/Inburgeringsplicht/openapi.yml) <br> - [Inburgeringstermijn](../API/Inburgeringstermijn/openapi.yml) <br> - [PIP](../API/PIP/openapi.yml) <br>- [Examen](../API's/Examen/openapi.yml) - [Vrijstelling](../API/Vrijstelling/openapi.yml) |
+
+# Termijnoverschrijding en boete
+Als er een bestuurlijke boete aan een persoon is opgelegd, dan kan dit aanleiding geven voor de gemeente om de boete informatie bij DUO te raadplegen. Een bestuurlijke boete wordt alleen gegeven als de inburgeraar verwijtbaar de termijn voor de leerroute en participatieonderdelen overschreden heeft.
+
+| gebeurtenisId | gebeurtenisomschrijving                  | Relevante API's |
+| ---           | ---                                      | ---      |
+| SS198         | Boete opgelegd na termijnoverschrijding  | - [Boete](../API/Boete/openapi.yml) |
+
 
 # Verzoeken inburgeraar
 Een aantal gebeurtenissen kunnen ontstaan door de afhandeling van verzoeken die de inburgeraar heeft ingediend bij DUO.
 
 | gebeurtenisId | gebeurtenisomschrijving                      | Relevante API's |
 | ---           | ---                                          | ---      |
-| SS113         | Verzoek verlenging afgewezen                 | - Beoordeling aanvraag verlenging (SDI011) |
+| SS112         | Verzoek verlenging ingediend                 | - [Verlenging](../API/Verlenging/openapi.yml) |
+| SS113         | Verzoek verlenging afgewezen                 | - [Verlenging](../API/Verlenging/openapi.yml) |
 | SS114         | Verzoek gehele vrijstelling afgewezen        | - [Vrijstelling](../API/Vrijstelling/openapi.yml) |
 | SS115         | Verzoek tijdelijke vrijstelling afgewezen    | - [Vrijstelling](../API/Vrijstelling/openapi.yml) |
 | SS116         | Verzoek gedeeltelijke vrijstelling afgewezen | - [Vrijstelling](../API/Vrijstelling/openapi.yml) | 
-| SS117         | Verzoek gedeeltelijke vrijstelling toegekend | - [Vrijstelling](../API/Vrijstelling/openapi.yml) <br> - Examenresultaten (SDI017) |
-| SS118         | Verzoek ontheffing afgewezen                 | - Beoordeling aanvraag verlenging (SDI013) |
-| SS119         | Verzoek gedeeltelijke ontheffing toegekend | - Beoordeling aanvraag verlenging (SDI013) <br> - Examenresultaten (SDI017) |
+| SS117         | Verzoek gedeeltelijke vrijstelling toegekend | - [Vrijstelling](../API/Vrijstelling/openapi.yml) - <br>- [Examen](../API's/Examen/openapi.yml) |
+| SS118         | Verzoek ontheffing afgewezen                 | - [Verlenging](../API's/Verlenging/openapi.yml)  |
+| SS119         | Verzoek gedeeltelijke ontheffing toegekend   | - [Verlenging](../API's/Verlenging/openapi.yml)  <br>- [Examen](../API's/Examen/openapi.yml)  |
 
 
 Hiernaast ontstaan onderstaande gebeurtenissen ook naar aanleiding van een verzoek. Zie per gebeurtenis de relevante paragraaf.
