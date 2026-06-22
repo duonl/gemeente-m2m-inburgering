@@ -58,6 +58,7 @@ DUO informeert de gemeente ten behoeve van de [Inburgeringsplicht](../API/Inburg
 | gebeurtenisId | gebeurtenisomschrijving               | Relevante API's |
 | ---           | ---                                   | ---             |
 | SS106         | Diploma behaald                       | - [Inburgeringsplicht](../API/Inburgeringsplicht/openapi.yml) |
+| SS141         | Het Inburgeringscertificaat is nu te downloaden via de Portal Inburgering | - [Inburgeringsplicht](../API/Inburgeringsplicht/openapi.yml) |
 | SS107         | Gehele vrijstelling toegekend         | - [Inburgeringsplicht](../API/Inburgeringsplicht/openapi.yml)  <br> - [Vrijstelling](../API/Vrijstelling/openapi.yml) |
 | SS108         | Gehele ontheffing toegekend           | - [Inburgeringsplicht](../API/Inburgeringsplicht/openapi.yml) |
 
