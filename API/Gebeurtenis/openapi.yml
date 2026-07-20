@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
   title: Gebeurtenis API
   description: 'Met deze API kunnen alle gebeurtenissen worden geraadpleegd die betrekking
-    hebben op de inburgeringsplicht van een inburgeringsplichtige. '
+    hebben op de inburgeringsplicht van een inburgeringsplichtige.'
   version: 1.0.0
 paths:
   /personen/{bsn}/gebeurtenissen:
@@ -122,7 +122,7 @@ components:
           maxLength: 200
           minLength: 1
           type: string
-          description: 'Nadere beschrijving '
+          description: 'Nadere beschrijving'
         datum:
           type: string
           description: Algemeen gegevenstype voor het vastleggen van een datum.
