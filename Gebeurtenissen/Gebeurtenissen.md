@@ -76,7 +76,7 @@ Zodra de gemeente een PIP wijzigt of vaststelt, dan kan deze met PIP API (SDI014
 Voor de ad hoc aanroep van de gemeente kan ook reden zijn bij bijv. het melden van een nieuwe inburgeraar voor de gemeente (gebeurtenissen SS101/128/139/120/121/129/130)."
 
 ## Examenresultaten
-De gemeente kan bij DUO de examenresultaten bevragen via Examen API (SDI017). 
+De gemeente kan bij DUO de examenresultaten bevragen via Examenresultaten API (SDI017). 
 
 | gebeurtenisId | gebeurtenisomschrijving                  | Relevante API's |
 | ---           | ---                                      | ---      |
@@ -114,7 +114,6 @@ Een aantal gebeurtenissen kunnen ontstaan door de afhandeling van verzoeken die 
 | SS117         | Verzoek gedeeltelijke vrijstelling toegekend | - [Vrijstelling](../API/Vrijstelling/openapi.yml) - <br>- [Examen](../API's/Examen/openapi.yml) |
 | SS118         | Verzoek ontheffing afgewezen                 | - [Verlenging](../API's/Verlenging/openapi.yml)  |
 | SS119         | Verzoek gedeeltelijke ontheffing toegekend   | - [Verlenging](../API's/Verlenging/openapi.yml)  <br>- [Examen](../API's/Examen/openapi.yml)  |
-
 
 Hiernaast ontstaan onderstaande gebeurtenissen ook naar aanleiding van een verzoek. Zie per gebeurtenis de relevante paragraaf.
 
