@@ -112,7 +112,7 @@ De datum eindgesprek MAP met indicatie verwijtbaarheid moet aan de volgende voor
 * Als de datum eindgesprek MAP leeg is (t.a.v. het intrekken van een eerder geregistreerde datum), dan mag de datum afronding Z-route niet geregistreerd zijn.
 * Als het verzoekbericht geen 'Verwijtbaar (Ja/Nee)' bevat, dan mag er geen sprake zijn van een overschrijding van de inburgeringstermijn.
 * Als de datum eindgesprek MAP voor de einddatum van de inburgeringstermijn ligt, dan mag de 'Verwijtbaar (Ja/Nee)' niet geleverd worden. 
-* 'Verwijtbaar (Ja/Nee)' mag alleen de waarde 'Nee' hebben als de einddatum van de inburgeringstermijn binnen twee maanden valt.
+* 'Verwijtbaar (Ja/Nee)' mag alleen de waarde 'Nee' hebben als de einddatum van de inburgeringstermijn binnen twee maanden valt of als er sprake is van een overschrijding van de inburgeringstermijn.
 * 'Verwijtbaar (Ja/Nee)' mag alleen de waarde 'Ja' hebben als er sprake is van een overschrijding van de inburgeringstermijn. 
 
 Het doorgeven van de Datum eindgesprek MAP en indicatie verwijtbaarheid gebeurt via een PUT methode. Hierbij wordt de gehele resource vervangen door de inhoud uit het verzoekbericht. Het intrekken van een de Datum eindgesprek MAP of indicatie verwijtbaarheid kan daarom door het betreffende onderdeel niet op te nemen in de body van het verzoekbericht.
@@ -128,7 +128,7 @@ De Datum ondertekening PVT met indicatie verwijtbaarheid moet aan de volgende vo
 * Als de datum ondertekening PVT leeg is (t.a.v. het intrekken van een eerder geregistreerde datum), dan mag de datum afronding Z-route niet geregistreerd zijn.
 * Als het verzoekbericht geen 'Verwijtbaar (Ja/Nee)' bevat, dan mag er geen sprake zijn van een overschrijding van de inburgeringstermijn.
 * Als de datum ondertekening PVT voor de einddatum van de inburgeringstermijn ligt, dan mag de 'Verwijtbaar (Ja/Nee)' niet geleverd worden. 
-* 'Verwijtbaar (Ja/Nee)' mag alleen de waarde 'Nee' hebben als de einddatum van de inburgeringstermijn binnen twee maanden valt.
+* 'Verwijtbaar (Ja/Nee)' mag alleen de waarde 'Nee' hebben als de einddatum van de inburgeringstermijn binnen twee maanden valt of als er sprake is van een overschrijding van de inburgeringstermijn.
 * 'Verwijtbaar (Ja/Nee)' mag alleen de waarde 'Ja' hebben als er sprake is van een overschrijding van de inburgeringstermijn. 
 
 Het doorgeven van de Datum ondertekening PVT en indicatie verwijtbaarheid gebeurt via een PUT methode. Hierbij wordt de gehele resource vervangen door de inhoud uit het verzoekbericht. Het intrekken van een de Datum ondertekening PVT of indicatie verwijtbaarheid kan daarom door het betreffende onderdeel niet op te nemen in de body van het verzoekbericht.
@@ -185,23 +185,23 @@ Het PKIO certificaat moet aan de volgende eisen voldoen:
 
 # Gerealiseerde API's binnen gegevensuitwisseling
 
-| Open API Specificatie                                        | Versie | Versiedatum| Stelseldienst Informatiemodel keten inburgering   | Changelog |
+| Open API Specificatie                                        | Versie | Versiedatum| Stelseldienst Informatiemodel keten inburgering  | Changelog |
 |------------------------------------------------------------- | ---    | ---        | ---            |  ---      |
 | [Notificatie](API/Notificatie/openapi.yml)                   | V1.8.0 | 02-10-2025 | n.v.t.         | [Notificatie](API/Notificatie/CHANGELOG.md) |
 | [Inburgeringsplicht](API/Inburgeringsplicht/openapi.yml)     | V1.2.2 | 31-03-2025 | SDI005, SDI009 | [Inburgeringsplicht](API/Inburgeringsplicht/CHANGELOG.md) |
 | [Leerbaarheidstoets](API/Leerbaarheidstoets/openapi.yml)     | V1.2.0 | 06-11-2024 | SDI006         |[Leerbaarheidstoets](API/Leerbaarheidstoets/CHANGELOG.md) |
 | [Inburgeringstermijn](API/Inburgeringstermijn/openapi.yml)   | V1.0.0 | 07-11-2024 | SDI007         |[Inburgeringstermijn](API/Inburgeringstermijn/CHANGELOG.md) |
+| [Gebeurtenis](API/Gebeurtenis/openapi.yml)                   | V1.0.0 | 17-06-2026 | SDI008         | [Gebeurtenis](API/Gebeurteis/CHANGELOG.md) |
 | [Verlenging](API/Verlenging/openapi.yml)                     | V1.0.0 | 28-05-2026 | SDI011         |[Verlenging](API/Verlenging/CHANGELOG.md) |
 | [Vrijstelling](API/Vrijstelling/openapi.yml)                 | V1.0.0 | 12-08-2025 | SDI012         |[Vrijstelling](API/Vrijstelling/CHANGELOG.md) |
 | [Ontheffing](API/Ontheffing/openapi.yml)                     | V1.0.0 | 07-10-2025 | SDI013         |[Ontheffing](API/Ontheffing/CHANGELOG.md) |
 | [PIP](API/PIP/openapi.yml)                                   | V1.1.3 | 16-01-2025 | SDI014         |[PIP](API/PIP/CHANGELOG.md) |
 | [Contactpersoon](API/Contactpersoon/openapi.yml)             | V1.0.0 | 14-05-2025 | SDI014         |[Contactpersoon](API/Contactpersoon/CHANGELOG.md) |
 | [Inburgeringsaanbod](API/Inburgeringsaanbod/openapi.yml)     | V1.0.0 | 27-01-2025 | SDI014         |[Inburgeringsaanbod](API/Inburgeringsaanbod/CHANGELOG.md) |
-| [MAP, PVT, Z-route](API/MAP,PVT,Zroute/openapi.yml)          | V1.0.0 | 30-03-2026 | SDI016         |[MAP, PVT, Z-route](API/MAP,PVT,Zroute/CHANGELOG.md) |3
+| [MAP, PVT, Z-route](API/MAP,PVT,Zroute/openapi.yml)          | V1.0.0 | 30-03-2026 | SDI016         |[MAP, PVT, Z-route](API/MAP,PVT,Zroute/CHANGELOG.md) |
 | [Gevolgde Uren](API/GevolgdeUren/openapi.yml)                | V1.1.0 | 18-05-2026 | SDI016, SDI019 |[Gevolgde Uren](API/GevolgdeUren/CHANGELOG.md) |
 | [Examen](API/Examen/openapi.yml)                             | V1.0.0 | 13-11-2025 | SDI017         | [Examen](API/Examen/CHANGELOG.md) |
 | [Boete](API/Boete/openapi.yml)                               | V1.0.0 | 08-06-2026 | SDI018         | [Boete](API/Boete/CHANGELOG.md) |
 
-# Geplande API's (Roadmap)
-De onderstaande API's worden nog gerealiseerd binnen de scope van de VOI. Deze staan niet in volgorde van realisatie:
-- Notificatie inburgeringsplichtige om reden (SDI008)
+# Contactgegevens
+Zie voor contactgevens [DUO Zakelijk](https://www.duo.nl/zakelijk/inburgering-ketenpartners/contact/contact-met-duo.jsp)

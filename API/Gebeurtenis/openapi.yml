@@ -1,0 +1,179 @@
+#2026-06-22_Gebeurtenis_rev12386
+openapi: 3.0.0
+info:
+  title: Gebeurtenis API
+  description: 'Met deze API kunnen alle gebeurtenissen worden geraadpleegd die betrekking
+    hebben op de inburgeringsplicht van een inburgeringsplichtige.'
+  version: 1.0.0
+paths:
+  /personen/{bsn}/gebeurtenissen:
+    get:
+      tags:
+      - Gebeurtenissen
+      operationId: getGebeurtenissenByBsn
+      parameters:
+      - $ref: "#/components/parameters/Bsn"
+      - $ref: "#/components/parameters/Bron"
+      - $ref: "#/components/parameters/Doel"
+      - $ref: "#/components/parameters/BerichtId"
+      responses:
+        "200":
+          description: OK
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Gebeurtenis"
+        "400":
+          description: Onjuist verzoek
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "401":
+          description: Niet geautoriseerd
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "403":
+          description: Niet toegestaan
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+        "404":
+          description: Niet gevonden
+          headers:
+            API-Version:
+              description: Volledige versienummer van de gebruikte API
+              required: true
+              schema:
+                maxLength: 255
+                minLength: 1
+                pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\\
+                  d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\
+                  +([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+                type: string
+                description: "Een versienummer met drie onderdelen (MAJOR.MINOR.PATCH),\
+                  \ dat gebruikt wordt om de aard van wijzigingen in software aan\
+                  \ te geven."
+components:
+  schemas:
+    Gebeurtenis:
+      required:
+      - id
+      - omschrijving
+      - datum
+      type: object
+      properties:
+        id:
+          maxLength: 6
+          minLength: 1
+          type: string
+          description: Identificatienummer van de gebeurtenis. Een gebeurtenis is
+            de representatie in het systeem van iets dat in de werkelijkheid is gebeurd.
+        omschrijving:
+          maxLength: 200
+          minLength: 1
+          type: string
+          description: 'Nadere beschrijving'
+        datum:
+          type: string
+          description: Algemeen gegevenstype voor het vastleggen van een datum.
+          format: date
+  parameters:
+    BerichtId:
+      name: berichtId
+      in: header
+      description: Unieke identificatie ten aanzien van traceerbaarheid en beheer
+        op het verzoek- en antwoordbericht. Het berichtId wordt bij elk verzoekbericht
+        willekeurig gegenereerd. In het antwoordbericht wordt vervolgens hetzelfde
+        berichtId teruggegeven als het verzoekbericht.
+      required: true
+      schema:
+        type: string
+        description: Universeel unieke identificatie in hexadecimale getallen.
+        format: uuid
+    Bron:
+      name: bron
+      in: header
+      description: Bron organisatie waar het bericht vandaan komt.
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 20
+        type: string
+        description: Het OIN (Organisatie-identificatienummer) is een uniek identificerend
+          nummer dat gebruikt wordt door overheidspartijen of organisaties met een
+          publieke taak in de digitale communicatie met andere publieke of private
+          partijen
+    Bsn:
+      name: bsn
+      in: path
+      required: true
+      schema:
+        maxLength: 9
+        minLength: 9
+        pattern: "\\d{9}"
+        type: string
+        description: Het burgerservicenummer (BSN) is het nummer dat de natuurlijke
+          persoon uniek identificeert in overheidsadministraties.
+    Doel:
+      name: doel
+      in: header
+      description: Doel organisatie waar het bericht voor bestemd is.
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 20
+        type: string
+        description: Het OIN (Organisatie-identificatienummer) is een uniek identificerend
+          nummer dat gebruikt wordt door overheidspartijen of organisaties met een
+          publieke taak in de digitale communicatie met andere publieke of private
+          partijen
